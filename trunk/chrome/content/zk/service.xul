@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<dialog id="serviceDialog" title="Change ZK Service URL"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="doLoad();"
+        buttons="accept,cancel,help"
+        buttonlabelaccept="Save"
+        buttonaccesskeyaccept="s"
+        ondialogaccept="return doSave();"
+        buttonlabelcancel="Cancel"
+        buttonaccesskeycancel="n"
+        ondialogcancel="return true;"
+        buttonlabelhelp="Clear History"
+        buttonaccesskeyhelp="c"
+        ondialoghelp="return doClear();">
+
+<script><![CDATA[
+function trim(str) {
+	var j = 0, tl = str.length, k = tl - 1;
+	while (j < tl && str.charAt(j) <= ' ')
+		++j;
+	while (k >= j && str.charAt(k) <= ' ')
+		--k;
+	return j > k ? "": str.substring(j, k + 1);
+};
+function $e(id) {
+	return document.getElementById(id);
+}
+function createMenuitem(urls, pp) {
+	var s = urls.split(",");
+	for (var i in s) {
+		var item = document.createElement("menuitem");
+		item.setAttribute("label", s[i]);
+		pp.appendChild(item);
+	}
+}
+function getMenuitemAsUrl(pp, url) {
+	var u = url;
+	for (var l, i = 0, n; pp.firstChild;) {
+		n = pp.removeChild(pp.firstChild);
+		l = trim(n.getAttribute("label"));
+		if (l == url || ++i > 9) continue;
+		u += "," + l;
+	}
+	return u;
+}
+function doLoad() {
+	window.sizeToContent();
+	var urls = window.arguments[0];
+	Firebug = window.arguments[1];
+	if (!urls) return;
+	var pp = document.createElement("menupopup");
+	pp.id = "zkServicePP";
+	createMenuitem(urls, pp);
+	var zkServiceList = $e("zkServiceList");
+	zkServiceList.appendChild(pp);
+	zkServiceList.selectedIndex = 0;
+}
+function doSave() {
+var url = trim($e("zkServiceList").inputField.value);
+	if (!url || url.toLowerCase().indexOf("http") != 0) {
+		$e("zkServiceList").inputField.focus();
+		alert("Empty or illegal!");
+		return false;
+	} else {
+		var pp = $e("zkServicePP");
+	 	if (pp)	url = getMenuitemAsUrl(pp, url);
+		Firebug.ZKModel.setPref(Firebug.prefDomain, Firebug.ZKModel.ZKService, url);
+  		if (pp) $e("zkServiceList").removeChild(pp);
+  		return true;
+	}
+}
+function doClear() {
+	var pp = $e("zkServicePP");
+	if (!pp) return;
+	getMenuitemAsUrl(pp, "");
+	var list = $e("zkServiceList");
+	list.inputField.value = "";
+	if (pp) list.removeChild(pp);
+	Firebug.ZKModel.setPref(Firebug.prefDomain, Firebug.ZKModel.ZKService, "");
+	list.inputField.focus();
+}
+]]></script>
+<menulist width="400px" id="zkServiceList" editable="true"/>
+</dialog>

@@ -1,0 +1,26 @@
+.palette-body {
+	background-color: white;
+}
+.palette-category-header {
+	overflow: hidden; color: #403E39; font: normal 12px Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	padding: 5px 3px 4px 5px; border-bottom: 1px solid #999884; line-height: 12px; 
+	background:transparent url(chrome://zk/skin/category-hd-gray.png) repeat-x 0 -1px;
+	font-weight:bold;cursor: pointer;
+}
+.palette-category-body {
+	display: none;
+	padding: 5px;
+}
+.palette-category.seld .palette-category-body {
+	display: block;
+	border-bottom: 1px solid #999884;
+}
+.palette-item {
+	padding: 2px 2px 2px 18px; cursor: pointer;
+	background-repeat:no-repeat;
+	font-size: 12px;
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+}
+.palette-category-row:hover {
+	background:transparent url(chrome://zk/skin/column-over.png) repeat-x;
+}

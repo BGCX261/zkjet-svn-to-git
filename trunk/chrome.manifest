@@ -1,0 +1,3 @@
+content zk chrome/content/zk/ xpcnativewrappers=no
+skin zk	classic/1.0	skin/classic/
+overlay chrome://firebug/content/firebugOverlay.xul         chrome://zk/content/zk.xul

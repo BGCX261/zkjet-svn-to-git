@@ -1,0 +1,37 @@
+#tryMeBtn {
+    list-style-image: url(chrome://zk/skin/favicon.ico);
+}
+#outDomBtn {
+    list-style-image: url(chrome://zk/skin/cmps/tree.png);
+    display: none;
+}
+#outZulBtn {
+    list-style-image: url(chrome://zk/skin/cmps/w4z.png);
+    display: none;
+}
+#zkSBIcon {
+    list-style-image: url(chrome://zk/skin/favicon.ico);
+    cursor: pointer;
+}
+.zscriptButton {
+	position: relative;
+	top: 3px;
+    padding: 3px 4px;
+    border: 1px solid transparent;
+    font-weight: bold;
+    color: #565656;
+}
+
+.zscriptButton:hover {
+    cursor: pointer;
+    background-color: #F6F6F1;
+    border-color: #BFBDA7;
+    -moz-border-radius: 4px;
+    
+}
+
+.zscriptButton-down {
+    cursor: default !important;
+    border-color: #7F7D67 !important;
+    background-color: #D8D5C5 !important;
+}
